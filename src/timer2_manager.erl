@@ -8,7 +8,7 @@
 
 -author('Mahesh Paolini-Subramanya <mahesh@dieswaytoofast.com>').
 
--compile([{parse_transform, lager_transform}]).
+% -compile([{parse_transform, lager_transform}]).
 
 %% ------------------------------------------------------------------
 %% API Function Exports
@@ -127,7 +127,7 @@ get_child_pid(Type) ->
         [Pid] ->
             Pid;
         PidList when is_list(PidList) ->
-            random:seed(os:timestamp()),
-            Index = random:uniform(length(PidList)),
+            % random:seed(os:timestamp()),
+            Index = rand:uniform(length(PidList)),
             lists:nth(Index, PidList)
     end.

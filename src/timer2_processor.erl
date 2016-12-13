@@ -12,7 +12,7 @@
 
 -author('Mahesh Paolini-Subramanya <mahesh@dieswaytoofast.com>').
 
--compile([{parse_transform, lager_transform}]).
+% -compile([{parse_transform, lager_transform}]).
 
 -behaviour(gen_server).
 -define(SERVER, ?MODULE).
@@ -64,22 +64,22 @@ handle_call(_Request, _From, State) ->
 handle_cast(_Msg, State) ->
   {noreply, State}.
 
-handle_info({send_after, FromRef, {Pid, Message} = _Args}, State) ->
+handle_info({timeout, _, {send_after, FromRef, {Pid, Message} = _Args}}, State) ->
     send(Pid, Message),
     timer2_acceptor:delete(FromRef),
     {noreply, State};
 
-handle_info({apply_after, FromRef, {M, F, A} = _Args}, State) ->
+handle_info({timeout, _, {apply_after, FromRef, {M, F, A} = _Args}}, State) ->
     do_apply({M, F, A}),
     timer2_acceptor:delete(FromRef),
     {noreply, State};
 
-handle_info({apply_interval, FromRef, _Time, {_Pid, {M, F, A}} = _Args}, State) ->
+handle_info({timeout, _, {apply_interval, FromRef, _Time, {_Pid, {M, F, A}} = _Args}}, State) ->
     do_apply({M, F, A}),
     timer2_acceptor:delete(FromRef),
     {noreply, State};
 
-handle_info({send_interval, FromRef, _Time, {Pid, Message} = _Args}, State) ->
+handle_info({timeout, _, {send_interval, FromRef, _Time, {Pid, Message} = _Args}}, State) ->
     send(Pid, Message),
     timer2_acceptor:delete(FromRef),
     {noreply, State};

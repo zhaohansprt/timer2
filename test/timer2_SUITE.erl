@@ -265,7 +265,7 @@ t_apply_after_many(_In) ->
 
 t_send_interval(_In) ->
     [begin
-         Count = 4,
+         Count = 2,
          Message = make_ref(),
          IRes = {ok, TRef} = timer2:send_interval(Time, self(), Message),
          {ok, {_ETRef, _Timer2Ref}} = IRes,
@@ -286,7 +286,7 @@ t_send_interval(_In) ->
 
 t_apply_interval(_In) ->
     [begin
-         Count = 4,
+         Count = 2,
          Message = make_ref(),
          IRes = {ok, TRef} = timer2:apply_interval(Time, timer2_manager, send_message_to_pid, [self(), Message]),
          {ok, {_ETRef, _Timer2Ref}} = IRes,

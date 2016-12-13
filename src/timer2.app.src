@@ -9,7 +9,6 @@
                   stdlib,
                   syntax_tools,
                   compiler,
-                  lager,
                   gproc
                  ]},
   {mod, { timer2_app, []}},

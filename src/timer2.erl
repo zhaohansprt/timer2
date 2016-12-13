@@ -14,7 +14,7 @@
 
 -define(APP, ?MODULE).
 
--compile([{parse_transform, lager_transform}]).
+% -compile([{parse_transform, lager_transform}]).
 
 -export([apply_after/4,
 	 send_after/3, send_after/2,
@@ -35,7 +35,7 @@
 %% @doc The returned reference is {ErlangTimerRef, {AcceptorPid, AcceptorRef}}
 %%
 -opaque tref()    :: {reference(), timer2_server_ref()}.
-
+-export_type([tref/0]).
 % ------------------------------------------------------------------
 %% Includes
 %% ------------------------------------------------------------------
@@ -48,7 +48,7 @@
 start() ->
     application:start(compiler),
     application:start(syntax_tools),
-    application:start(lager),
+    % application:start(lager),
     application:start(gproc),
     application:start(timer2).
 
@@ -58,7 +58,7 @@ start() ->
 stop() ->
     application:stop(timer2),
     application:stop(gproc),
-    application:stop(lager),
+    % application:stop(lager),
     application:start(syntax_tools),
     application:stop(compiler).
 

@@ -12,7 +12,7 @@
 
 -author('Mahesh Paolini-Subramanya <mahesh@dieswaytoofast.com>').
 
--compile([{parse_transform, lager_transform}]).
+% -compile([{parse_transform, lager_transform}]).
 
 -behaviour(gen_server).
 
@@ -211,7 +211,7 @@ code_change(_OldVsn, State, _Extra) ->
 local_do_after(Timer2Ref, Time, Message, _State) ->
     case timer2_manager:get_process(timer2_processor) of
         Pid when is_pid(Pid) ->
-            NewETRef =  erlang:send_after(Time, Pid, Message),
+            NewETRef =  erlang:start_timer(Time, Pid, Message),
             true = ets:insert(?TIMER2_REF_TAB, {Timer2Ref, NewETRef}),
             true = ets:insert(?TIMER2_TAB, {NewETRef, Message}),
             {ok, {NewETRef, Timer2Ref}};
@@ -224,7 +224,7 @@ local_do_after(Timer2Ref, Time, Message, _State) ->
 local_do_interval(FromPid, Timer2Ref, Time, Message, _State) ->
     case timer2_manager:get_process(timer2_processor) of
         ToPid when is_pid(ToPid) ->
-            ETRef = erlang:send_after(Time, ToPid, Message),
+            ETRef = erlang:start_timer(Time, ToPid, Message),
             % Need to link to the FromPid so we can remove these entries
             try
                 link(FromPid),
