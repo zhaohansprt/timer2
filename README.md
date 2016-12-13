@@ -9,7 +9,7 @@ Requirements
 ------------
 
 You should only need a somewhat recent version of Erlang/OTP, though the module
-has only been tested with Erlang R15B and R15B01.
+has only been tested with Erlang R19.1 .
 
 
 Installation
