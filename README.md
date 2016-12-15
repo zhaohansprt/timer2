@@ -3,8 +3,11 @@ timer2
 
 Erlang application which is a high(er) performance and API compatible version of timer.
 (just timer2:... instead of timer:...)
-
-
+__________________________
+fork man thinkings
+timer can be easily modifed to become capable to be perisistent  , but timer2 can't  
+so  timer2 has very limited uses in serious production requiement 
+_______________________________________
 Requirements
 ------------
 
